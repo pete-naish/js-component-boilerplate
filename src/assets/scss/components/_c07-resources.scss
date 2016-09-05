@@ -1,0 +1,148 @@
+.resources {
+    @extend %pattern-overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+    &:before {
+        background: rgba(0, 0, 0, .6);
+    }
+    .sidebar & {
+        background: $color-white !important;
+        border: $default-border;
+        box-shadow: $default-box-shadow;
+        padding: 20px $horizontal-spacer--wide 23px;
+        &:before {
+            display: none;
+        }
+        @include bp(medium) {
+            padding: 20px $horizontal-spacer--full 23px;
+        }
+    }
+}
+
+.resources__container {
+    @include clearfix;
+    padding: 15px $horizontal-spacer--wide 20px;
+    position: relative;
+    @include bp(medium) {
+        margin: 0 auto;        
+        max-width: $grid-max-width;
+        padding: 65px $horizontal-spacer 50px;
+    }
+    .sidebar & {
+        padding: 0;
+    }
+}
+
+.resources__title {
+    @extend %text-heading--1;
+    color: $color-text--secondary;
+    margin: 0 0 12px;
+    @include bp(medium) {
+        margin: 0 $horizontal-spacer 40px;
+    }
+    .sidebar & {
+        @extend %text-heading--4;
+        color: $color-text--primary;
+        @include bp(medium) {
+            margin: 0 0 12px 0;
+        }
+    }
+}
+
+.resource-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    .sidebar & {
+        display: block;
+    }
+}
+
+.resource-list__item {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    flex-basis: 100%;
+    margin: 0 0 10px;
+    padding: 0;
+    text-align: center;
+    @include bp(medium) {
+        margin: 0 $horizontal-spacer 30px;
+        flex-basis: 214px;
+    }
+    .sidebar & {
+        box-shadow: none;
+        text-align: left;
+        + .resource-list__item {
+            border-top: $default-border;
+            margin-top: 12px;
+            padding-top: 12px;
+        }
+        @include bp(medium) {
+            margin: 0;
+        }
+    }
+}
+
+.resource-list__link {
+    @extend %text-heading--4;
+    background-color: $color-white;
+    color: $color-text--primary;
+    display: table;
+    height: 100%;
+    padding: 34px 10px;
+    transition: all $default-transition;
+    width: 100%;
+    &:focus {
+        background-color: $color-blue--active;
+        color: $color-text--secondary;
+    }
+    .no-touch & {
+        &:hover {
+            background-color: $color-blue--active;
+            color: $color-text--secondary;
+        }
+    }
+    .sidebar & {
+        @extend %text-body;
+        @extend %link;
+        color: $color-text--primary;
+        display: block;
+        height: auto;
+        margin-bottom: 0;
+        padding: 0;
+        width: auto;
+        &:focus {
+            background-color: $color-white;
+            .resource-list__tag {
+                color: $color-blue--active;
+            }
+        }
+        .no-touch & {
+            &:hover {
+                background-color: $color-white;
+                .resource-list__tag {
+                    color: $color-blue--active;
+                }
+            }
+        }
+    }
+}
+
+.resource-list__text-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    .sidebar & {
+        display: inline;
+    }
+}
+
+.resource-list__tag {
+    display: none;
+    .sidebar & {
+        @extend %text-supporting;
+        @extend %link;
+        display: block;
+    }
+}

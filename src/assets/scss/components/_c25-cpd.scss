@@ -1,0 +1,119 @@
+.cpd {
+    @extend %pattern-overlay;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;   
+}
+
+.cpd__container {
+    @include clearfix;
+    background-color: $color-white;
+    padding: 10px $horizontal-spacer--wide 20px;
+    position: relative;
+    @include bp(medium) {
+        background-color: transparent;
+        margin: 0 auto;
+        max-width: $grid-max-width;
+        padding: 0 $horizontal-spacer--full;
+    }
+}
+
+.cpd__content {
+    @include bp(medium) {
+        float: left;
+        margin: 285px 0 38px;
+        max-width: 58%;
+        padding-right: $horizontal-spacer--full;
+    }
+}
+
+.cpd__title {
+    @extend %text-hero--2;
+    @include bp(medium) {
+        color: $color-text--secondary;
+        margin-bottom: 38px;
+    }
+}
+
+.cpd__image {
+    display: block;
+    height: auto !important;
+    max-width: 100%;
+    @include bp(medium) {
+        display: none;
+    }
+}
+
+.cpd__cta {
+    margin-top: 22px;
+    @include bp(medium) {
+        margin-top: 0;
+    }
+}
+
+.cpd-aside {
+    background-color: $color-white;
+    box-shadow: $default-box-shadow;
+    margin-top: 35px;
+    padding: 0 $horizontal-spacer--wide;
+    @include bp(medium) {
+        float: left;
+        margin: 0 0 120px;
+        max-width: 42%;
+        padding: 0 $horizontal-spacer--full;
+    }
+}
+
+.cpd-aside__title {
+    @extend %text-heading--3;
+    @include bp(medium) {
+        margin-top: 20px;
+    }
+}
+
+.cpd-aside__item {
+    padding: 10px 0 16px;
+    & + & {
+        border-top: $default-border;
+    }
+}
+
+.cpd-aside__subtitle {
+    @extend %text-heading--4;
+    color: $color-text--primary;
+    transition: color $default-transition;
+    &:focus {
+        color: $color-blue--active;
+    }
+    .no-touch & {
+        &:hover {
+            color: $color-blue--active;
+        }
+    }
+}
+
+.cpd-aside__link {
+    color: inherit;
+    display: block;
+}
+
+.cpd-aside__meta {
+    @extend %text-body;
+    margin-left: 10px;
+    transition: none;
+}
+
+.cpd-aside__tag {
+    @extend %text-body;
+    @extend %link;
+    display: block;
+    margin-top: 5px;
+}
+
+.cpd-aside__cta {
+    margin: 0 0 10px;
+    @include bp(medium) {
+        margin: 14px 0 21px;
+    }
+}

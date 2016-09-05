@@ -1,0 +1,141 @@
+.rte {
+    padding: 20px 0;
+    @include bp(medium) {
+        padding: 40px 0;
+    }
+    h1 {
+        @extend %text-heading--1;
+        margin-bottom: 17px;
+        @include bp(medium) {
+            margin-bottom: 7px;
+        }
+        + p {
+            @extend %text-paragraph;
+            margin-bottom: 32px;
+        }
+    }
+    h2 {
+        @extend %text-heading--2;
+        margin-bottom: 15px;
+        @include bp(medium) {
+            margin-bottom: 10px;
+        }
+    }
+    h3 {
+        @extend %text-heading--3;
+        margin-bottom: 15px;
+    }
+    h4 {
+        @extend %text-heading--4;
+        margin-bottom: 12px;
+    }
+    p {
+        @extend %text-body;
+        margin-bottom: 10px;
+    }
+    blockquote {
+        @extend %text-heading--2;
+        quotes: "“" "”" "‘" "’";
+        margin-bottom: 14px;
+        margin-top: 12px;
+        @include bp(medium) {
+            margin-bottom: 32px;
+            margin-top: 20px;
+        }
+        &:before {
+            content: open-quote;
+        }
+        &:after {
+            content: close-quote;
+        }
+    }
+    a {
+        @extend %link;
+    }
+    strong {
+        font-family: $font-breuer--medium;
+    }
+    em {
+        font-style: italic;
+    }
+    sup {
+        vertical-align: super;
+        font-size: smaller;
+    }
+    sub {
+        vertical-align: sub;
+        font-size: smaller;
+    }
+    del {
+        text-decoration: line-through;
+    }
+    table {
+        text-align: left;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    th {
+        background-color: $color-grey--dark;
+        color: $color-text--secondary;
+        padding: 20px $horizontal-spacer;
+    }
+    tr:nth-child(even) {
+        background-color: $color-grey--light;
+    }
+    td {
+        @extend %text-supporting;
+        border-bottom: $default-border;
+        padding: 30px $horizontal-spacer;
+    }
+    td:first-child,
+    th:first-child {
+        padding-left: $horizontal-spacer--full;
+    }
+    td:last-child,
+    th:last-child {
+        padding-right: $horizontal-spacer--full;
+    }
+    img {
+        height: auto !important;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+    figure {
+        max-width: 100%;
+        img {
+            height: auto !important;
+            max-width: 100%;
+            margin-bottom: -4px;
+        }
+    }
+    figcaption {
+        @extend %text-supporting;
+        max-width: 100%;
+        margin-bottom: 18px;
+    }
+    ul {
+        list-style: disc;
+        margin-left: $horizontal-spacer--wide;
+        margin-bottom: 20px;
+        @include bp(medium) {
+            margin-bottom: 30px;
+            margin-top: 5px;
+        }
+    }
+    ol {
+        list-style: decimal;
+        margin-left: $horizontal-spacer--wide;
+        margin-bottom: 20px;
+        @include bp(medium) {
+            margin-bottom: 30px;
+            margin-top: 5px;
+        }
+    }
+    li + li {
+        margin-top: 10px;
+    }
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}

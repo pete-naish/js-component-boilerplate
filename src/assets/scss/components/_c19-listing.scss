@@ -1,0 +1,136 @@
+.listing {
+    padding: 15px $horizontal-spacer--wide;
+    @include bp(medium) {
+        padding: 0 0 15px 0;
+        margin-top: 50px;
+    }
+}
+
+.listing__items {
+    @include bp(medium) {
+        padding: 0 $horizontal-spacer 0;
+    }
+}
+
+.listing__item {
+    border-bottom: $default-border;
+    display: none;
+    opacity: 0;
+    padding-bottom: 20px;
+    transition: opacity $default-transition;
+    &.is-visible {
+        animation: fadeIn $default-transition;
+        display: block;
+        opacity: 1;
+    }
+    &.has-error {
+        animation: fadeIn $default-transition;
+        display: block;
+        margin-bottom: 50px;
+        opacity: 1;
+        padding-bottom: 50px;
+        text-align: center;
+    }
+    @include bp(medium) {
+        align-items: flex-start;
+        margin: 0 $horizontal-spacer;
+        padding: 0 0 30px;
+        &.is-visible {
+            display: flex;
+        }
+        & + & {
+            padding-top: 30px;
+        }
+    }
+}
+
+.listing__image-wrapper {
+    flex-basis: 26%;
+    + .listing__info {
+        flex-basis: 45%;
+    }
+    @include bp(medium) {
+        margin-bottom: 0;
+        padding-right: $horizontal-spacer--full;
+    }
+}
+
+.listing__image {
+    display: block;
+    height: auto !important;
+    width: 100%;
+    @include bp(medium) {
+        margin-top: 8px;
+        max-width: 100%;
+    }
+}
+
+.listing__info {
+    flex-basis: 72%;
+    padding-right: $horizontal-spacer--full;
+}
+
+.listing__title {
+    @extend %text-heading--3;
+    color: $color-text--primary;
+    margin-bottom: 3px;
+    margin-top: 10px;
+    transition: color $default-transition;
+    &:focus {
+        color: $color-blue--active;
+    }
+    .no-touch & {
+        &:hover {
+            color: $color-blue--active;
+        }
+    }
+    a {
+        color: inherit;
+        display: block;
+        &:visited {
+            color: $color-purple;
+        }
+    }
+    @include bp(medium) {
+        margin-top: 0;
+    }
+}
+
+.listing__subtitle {
+    @extend %text-paragraph;
+}
+
+.listing__meta {
+    @extend %text-heading--4;
+    color: $color-green;
+    margin-left: $horizontal-spacer;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.listing__tag {
+    @extend %text-supporting;
+    color: $color-blue;
+    display: inline-block;
+    & + & {
+        margin-left: 10px;
+    }
+}
+
+.listing__aside {
+    align-self: stretch;
+    flex-basis: 29%;
+    @include bp(medium) {
+        border-left: $default-border;
+        padding-left: $horizontal-spacer--full;
+    }
+}
+
+.listing__detail {
+    margin-bottom: 25px;
+}
+
+.listing__more {
+    display: block;
+    margin: 30px auto;
+}

@@ -1,0 +1,41 @@
+---
+layout: root
+---
+<div class="wrapper">
+    <section class="leftcol">
+        <img src="http://templates.precedenthost.co.uk/fed-index/img/precedent.png" alt="Precedent"/>
+        <div class="projectinfo">
+            <p>Precedent<br/>
+            The Courtyard Building<br/>
+            11 Curtain Road<br/>
+            London EC2A 3LT</p>
+            <p>Tel: 020 7426 8900</p>
+            <p>Fax: 020 7426 8901</p>
+            <p><a href="mailto:contact@precedent.co.uk">contact@precedent.co.uk</a></p>
+            <p><a href="http://precedent.co.uk/">www.precedent.co.uk</a></p>
+        </div>
+    </section>
+    <section class="project--title">
+        <p>Project:<br/><span>Project Name - CFA UK | 2016</span></p>
+    </section>
+    <section class="build--list">
+        <div class="section__wrapper">
+            <h1>Project Templates</h1>
+            <ul>
+              {{#each urls_pages}}
+                <li><a href="{{ this }}">{{ this }}</a></li>
+              {{/each}}
+            </ul>
+        </div>
+    </section>
+    <section class="build--list">
+        <div class="section__wrapper">
+            <h1>Project Components</h1>
+            <ul>
+              {{#each urls_components}}
+                <li><a href="{{ this }}">{{ this }}</a></li>
+              {{/each}}
+            </ul>
+        </div>
+    </section>
+</div>

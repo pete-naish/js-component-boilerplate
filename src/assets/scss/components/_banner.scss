@@ -1,0 +1,54 @@
+.banner {
+    background-color: $color-blue;
+    color: $color-text--secondary;
+    padding: 20px 0 22px;
+    + .breadcrumb {
+        border-bottom: $default-border;
+    }
+    @include bp(medium) {
+        padding: 40px 0 42px;
+    }
+}
+
+.banner__title {
+    @extend %text-heading--1;
+    margin-bottom: 5px;
+    @include bp(medium) {
+        float: left;
+        margin-bottom: 0;
+    }
+}
+
+.banner__copy {
+    @extend %text-paragraph;
+    clear: left;
+}
+
+.banner__cta {
+    @extend %link;
+    color: $color-text--secondary;
+    font-family: $font-breuer--medium;
+    .icon-arrow {
+        transform: rotate(-45deg);
+    }
+    .icon-arrow__shape {
+        transition: stroke $default-transition;
+        stroke: $color-text--secondary;
+    }
+    &:focus {
+        .icon-arrow__shape {
+            stroke: $color-blue--active;           
+        }
+    }
+    .no-touch & {
+        &:hover {
+            .icon-arrow__shape {
+                stroke: $color-blue--active;           
+            }
+        }
+    }
+    @include bp(medium) {
+        float: right;
+        margin-top: 25px;
+    }
+}

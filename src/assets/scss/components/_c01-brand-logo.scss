@@ -1,0 +1,30 @@
+.brand-logo {
+    float: left;
+    max-width: 216px;
+    padding: 16px 0 16px $horizontal-spacer--wide;
+    opacity: 1;
+    transition: opacity $default-transition;
+    .nav-active & {
+        opacity: 0;
+        transition: opacity $default-transition;
+    }
+    @include bp(breaknav) {
+        max-width: 250px;
+        padding: 25px 40px 25px $horizontal-spacer--full;
+        .nav-active & {
+            opacity: 1;
+        }
+        .search-active & {
+            left: 0;
+            max-width: none;
+            position: absolute;
+            top: 0;
+            width: 24.6%;
+        }
+    }
+}
+
+.brand-logo__image {
+    max-width: 100%;
+    vertical-align: middle;
+}

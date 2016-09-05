@@ -1,0 +1,16 @@
+.simple-list {
+    margin: 40px 0;
+}
+
+.simple-list__title {
+    @extend %text-paragraph;
+}
+
+.simple-list__item {
+    @extend %text-heading--4;
+    margin-top: 10px;
+}
+
+.simple-list__link {
+    @extend %link;
+}

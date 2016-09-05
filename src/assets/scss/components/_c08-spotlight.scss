@@ -1,0 +1,136 @@
+.spotlight__image,
+.spotlight__video-wrapper {
+    height: auto !important;
+    width: 100%;
+    @include bp(medium) {
+        .spotlight--media-left & {
+            float: left;
+        }
+        .spotlight--media-right & {
+            float: right;
+        }
+    }
+}
+
+.spotlight-group {
+    padding: 20px $horizontal-spacer--wide;
+    @include bp(medium) {
+        padding: 0;
+        .spotlight {
+            padding: 0;
+        }
+    }
+}
+
+.spotlights {
+    @include clearfix;
+    box-shadow: $default-box-shadow;
+    @include bp(medium) {
+        box-shadow: none;
+    }
+}
+
+.spotlight {
+    @include clearfix;
+    background-color: $color-white;
+    @include bp(medium) {
+        padding: 50px 0;
+        position: relative;
+        & + & {
+            border-top: 1px solid $color-grey--mid;
+        }
+        > .spotlight__image,
+        > .spotlight__video-wrapper,
+        > .spotlight__promo {
+            width: 50%;
+        }
+    }
+}
+
+.spotlight__content {
+    float: left;
+    padding: $horizontal-spacer--wide;
+    @include bp(medium) {
+        padding: 0 $horizontal-spacer--full 30px;
+        width: 50%;
+    }
+}
+
+.spotlight__title {
+    @extend %text-heading--2;
+    margin-bottom: 5px;
+    @include bp(medium) {
+        margin-bottom: 12px;
+    }
+}
+
+.spotlight__copy {
+    margin-bottom: 25px;
+    @include bp(medium) {
+        margin-bottom: 45px;
+    }
+}
+
+.spotlight__cta {
+    margin-top: 10px;
+    + .button--tertiary {
+        margin-left: 10px;
+    }
+    @include bp(medium) {
+        margin-top: 10px;
+        margin-right: 6px;
+        margin-bottom: 6px;
+        & + & {
+            margin-top: 0;
+        }
+    }
+}
+
+.spotlight__cta.button--secondary {
+    background-color: $color-grey--light;
+}
+
+.spotlight__promo {
+    background-color: $color-green;
+    padding: 6px $horizontal-spacer--wide 24px;
+    width: 100%;
+    @include bp(medium) {
+        padding: 28px $horizontal-spacer--full 90px;
+        .spotlight--media-left & {
+            float: right;
+        }
+        .spotlight--media-right & {
+            float: left;
+        }
+    }
+}
+
+.spotlight__promo-title {
+    @extend %text-hero--2;
+    color: $color-text--secondary;
+}
+
+
+.spotlight-aside {
+    background-color: $color-white;
+    float: left;
+    padding: 0 $horizontal-spacer--wide;
+    position: relative;
+    width: 100%;
+    @include bp(medium) {
+        background-color: transparent;
+        padding: 0 $horizontal-spacer--full;
+        margin-top: -80px;
+        width: 50%;
+    }
+}
+
+.spotlight-aside__content {
+    @include clearfix;
+    background-color: $color-white;
+    padding: 10px 0 20px;
+    @include bp(medium) {
+        box-shadow: $default-box-shadow;
+        padding: 15px $horizontal-spacer--full 30px;
+    }
+}

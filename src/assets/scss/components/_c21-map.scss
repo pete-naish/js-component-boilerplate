@@ -1,0 +1,6 @@
+.map__container {
+    min-height: 300px;
+    @include bp(medium) {
+        min-height: 520px;
+    }
+}

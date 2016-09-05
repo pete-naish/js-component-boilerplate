@@ -1,0 +1,52 @@
+.contact-block {
+    border-top: $default-border;
+    margin: 2px $horizontal-spacer--wide 10px;
+    padding: 10px 0 0;
+    @include bp(medium) {
+        border-top: 0;
+        margin: 20px 0 0;
+        padding: 0 10px 0 0;
+    }
+}
+
+.contact-block--alt {
+    border: 0;
+    padding-top: 5px;
+    @include bp(medium) {
+        padding-top: 0;
+    }
+}
+
+.contact-block__title {
+    font-family: $font-breuer--medium;
+    margin-bottom: 5px;
+    @include bp(medium) {
+        margin-bottom: 18px;
+        padding-left: $horizontal-spacer--full;
+        .contact-block--alt & {
+            padding-left: 0;
+        }
+    }
+}
+
+.contact-block__copy {
+    @include bp(medium) {
+        border-left: $default-border;
+        padding: 0 0 15px $horizontal-spacer--full;
+        .contact-block--alt & {
+            border-left: 0;
+            padding-left: 0;
+        }
+    }
+}
+
+.contact-block__link {
+    @extend %link;
+    display: block;
+    font-family: $font-breuer--medium;
+    margin-top: 8px;
+    transition: color $default-transition;
+    @include bp(medium) {
+        margin-top: 16px;
+    }
+}

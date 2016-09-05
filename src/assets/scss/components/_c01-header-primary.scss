@@ -1,0 +1,11 @@
+.header-primary {
+    background-color: $color-white;
+    border-bottom: $default-border;
+    position: relative;
+    z-index: 10;
+    @include bp(breaknav) {
+        &.search-active .g-col {
+            position: relative;
+        }
+    }
+}

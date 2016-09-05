@@ -1,0 +1,21 @@
+{
+  "name": "lcci-fe",
+  "version": "1.0.0",
+  "authors": [
+    "FE Team <james.burnage@precedent.com>"
+  ],
+  "description": "Site generator for LCCI.",
+  "main": "gulpfile.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.0.0",
+    "handlebars": "^4.0.5"
+  }
+}

@@ -1,0 +1,50 @@
+.button,
+%button {
+    @extend %text-heading--4;
+    border: 0;
+    display: inline-block;
+    padding: 9px $horizontal-spacer--full;
+    transition: all $default-transition;
+}
+
+.button--primary {
+    @extend %button;
+    background-color: $color-blue;
+    color: $color-text--secondary;
+    &:focus {
+        background-color: $color-blue--active;   
+    }
+    .no-touch & {
+        &:hover {
+            background-color: $color-blue--active;
+        }
+    }
+}
+
+.button--secondary {
+    @extend %button;
+    background-color: $color-grey--light;
+    color: $color-blue;
+    &:focus {
+        background-color: $color-blue--active;
+        color: $color-text--secondary;
+    }
+    &:visited {
+        color: $color-purple;
+    }
+    .no-touch & {
+        &:hover {
+            background-color: $color-blue--active;
+            color: $color-text--secondary;
+        }
+    }
+    @include bp(medium) {
+        background-color: $color-white;
+    }
+}
+
+.button--tertiary {
+    @extend %button;
+    @extend %link;
+    padding: 0;
+}

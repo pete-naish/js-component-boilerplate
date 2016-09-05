@@ -1,0 +1,19 @@
+.responsive-video {
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    position: relative;
+}
+
+.responsive-video__object {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.responsive-video__error {
+    color: #f00;
+    padding-left: $horizontal-spacer--full;
+}

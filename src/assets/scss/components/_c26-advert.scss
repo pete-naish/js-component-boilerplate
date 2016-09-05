@@ -1,0 +1,28 @@
+.advert {
+    background-color: $color-grey--light;
+    img {
+        display: block;
+        height: auto !important;
+        margin: 0 auto;
+        max-width: 100%;
+        padding: 20px $horizontal-spacer--wide;
+    }
+    .sidebar & {
+        background-color: transparent;
+    }
+    @include bp(medium) {
+        img {
+            padding: 20px $horizontal-spacer--full;
+        }
+    }
+}
+
+.advert--skyscraper {
+    img {
+        margin: 0;
+        padding: 0;
+        @include bp(medium) {
+            padding: 0;
+        }
+    }
+}

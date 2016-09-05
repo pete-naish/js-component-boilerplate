@@ -1,0 +1,14 @@
+<!--
+app.js runs through every data-component attribute on the page and initialises the matching component javascript file, passing in the optional data object so that the content management system can set values for use inside the component js.
+The value of data-component must match projectName.componentName as defined in your component's javascript file
+The optional data object must be valid JSON i.e. keys must be wrapped in double quotes.
+-->
+
+<section class="componentName" data-component="componentName">
+    <script type="text/data">
+        {
+            "title": "Custom component title"
+        }
+    </script>
+    <button class="componentName__button"></button>
+</section>

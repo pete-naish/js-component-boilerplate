@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+npm-debug.log
+bower_components
+
+# Generated content
+dist
+
+# Generated URLs file
+src/data/urls.json

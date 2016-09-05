@@ -1,0 +1,14 @@
+@font-face {
+    font-family: breuerRegular;
+    src: url('../fonts/breuer-text--regular.woff2') format('woff2'), url('../fonts/breuer-text--regular.woff') format('woff');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: breuerMedium;
+    src: url('../fonts/breuer-text--medium.woff2') format('woff2'), url('../fonts/breuer-text--medium.woff') format('woff');
+    font-weight: normal;
+}
+
+$font-breuer--regular: 'breuerRegular', Arial, sans-serif;
+$font-breuer--medium: 'breuerMedium', Arial, sans-serif;

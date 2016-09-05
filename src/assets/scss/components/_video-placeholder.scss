@@ -1,0 +1,40 @@
+.video-placeholder {
+    position: relative;
+    .icon-play {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .icon-play__background {
+        transition: fill $default-transition;
+    }
+    &.has-loaded {
+        background: url(../img/icons/icon-loading.gif) no-repeat center !important;
+        .icon-play,
+        .video-placeholder__image {
+            display: none;
+        }
+    }
+    &.has-error {
+        background: none !important;
+    }
+    &:focus {
+        .icon-play__background {
+            fill: $color-blue--active
+        }
+    }
+    .no-touch & {
+        &:hover {
+            .icon-play__background {
+                fill: $color-blue--active
+            }
+        }
+    }
+    @include bp(medium) {
+        cursor: pointer;
+        &.has-loaded {
+            cursor: default;
+        }
+    }
+}

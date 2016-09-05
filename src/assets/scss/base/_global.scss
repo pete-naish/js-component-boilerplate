@@ -1,0 +1,9 @@
+html,
+body {
+    @extend %text-body;
+    color: $color-text--primary;
+    -ms-text-size-adjust: 100%;
+    position: relative;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+}

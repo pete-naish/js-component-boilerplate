@@ -1,0 +1,22 @@
+.footer-copyright {
+    color: $color-grey--mid;
+    font-size: 12px;
+    padding: 5px 0;
+    @include bp(medium) {
+        font-size: 14px;
+        padding: 9px 0;
+    }
+}
+
+.footer-copyright__link {
+    transition: color $default-transition;
+    color: $color-text--primary;
+    &:focus {
+        color: $color-blue--active;
+    }
+    .no-touch & {
+        &:hover {
+            color: $color-blue--active;
+        }
+    }
+}
