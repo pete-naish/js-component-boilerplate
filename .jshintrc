@@ -21,7 +21,7 @@
   "expr": true,
   "boss": true,
   "globals": {
-    "cfa": true,
+    "projectName": true,
     "Handlebars": false,
     "google": false,
     "moment": false,
