@@ -1,14 +1,16 @@
-This boilerplate outlines a new and improved component-based architecture for javascript.
+This boilerplate outlines a new and improved component-based architecture for JavaScript.
 
-It removes the need for littering markup with javascript hooks, and makes it easy to pass CMS-editable variables into your code. Everything is neatly scoped, allowing for multiple instances to run on the same page without conflicts. Custom events can be fired in one component and listened to in another.
+It is designed to work together with re-usable HTML and CSS components.
 
-Doing if ($(element).length) before your code executes is no longer necessary. By definition, code will only run if the component is on the page.
+It removes the need for littering markup with JavaScript hooks, and makes it easy to pass CMS-editable variables into your code. Everything is neatly scoped, allowing for multiple instances to run on the same page without conflicts. Custom events can be fired in one component and listened to in another.
 
-src/assets/app.js is the entry point into our app. This file contains the namespace for all of our custom project code.
+Doing `if ($(element).length)` before your code executes is no longer necessary. By design, code will only run if the component is on the page.
 
-You'll need to change instances of the word 'projectName' to whatever you choose to call your app. A nice short acronym is best.
+`src/assets/app.js` is the entry point into our app. This file contains the namespace for all of our custom project code.
 
-Instances may be found in /.jshintrc, src/assets/js/app.js, src/assets/js/jquery-start.js, src/assets/js/functions/helpers/checkEmptyInput.js, 
+You'll need to change instances of the word `projectName` to whatever you choose to call your app. A nice short acronym is best.
+
+Instances may be found in `/.jshintrc`, `src/assets/js/app.js`, `src/assets/js/jquery-start.js`, `src/assets/js/functions/helpers/checkEmptyInput.js`, 
 
 
 # Precedent Base | Panini - HandlebarsJs | Gulp build
