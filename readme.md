@@ -19,7 +19,9 @@ Instances of 'projectName' may be found in:
 - `src/assets/js/functions/components/componentName.js`
 - `src/assets/js/functions/components/componentName--with-comments.js`
 
-`checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways. Files inside `js/functions/components` are for components that have hooks in your HTML as shown below. Files inside `js/functions/global` are for functions (IIFEs) that run without hooks in your HTML. The `responsiveTables` example adds wrappers around tables that may be inside CMS-editable content areas, so adding hooks is not possible. Files inside `js/functions/helpers` are little snippets (IIFEs again) that can be used elsewhere in your application. The `checkEmptyInput` example simply lets you check if a field is empty, and adds a temporary class if it is.
+Just do a find & replace.
+
+`checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways. Files inside `js/functions/components` are for components that have hooks in your HTML as shown below. Files inside `js/functions/global` are for functions (IIFEs) that run without hooks in your HTML. For example, `responsiveTables.js` adds wrappers around tables that may be inside CMS-editable content areas, so adding hooks is not possible. Files inside `js/functions/helpers` are little snippets (IIFEs again) that can be used elsewhere in your application. For example, `checkEmptyInput.js` lets you check if a field is empty, and adds a temporary error class to the field if it is empty.
 
 When creating an HTML component that requires JavaScript, add a `data-component` attribute to the hightest level container available. For example:
 
@@ -39,7 +41,7 @@ projectName.gallery = function(options) {
     ...
 ```
 
-It's also possible to pass options into your component, making CMS-configurable settings painless. This is indicated by the options parameter in the snippet above. In your HTML, add a `script` tag with the type `text/data`, and type your options in valid JSON format:
+It's also possible to pass options into your component, making CMS-configurable settings painless. This is indicated by the options parameter in the snippet above. In your HTML, insert a `script` tag with `type="text/data"`, and add your options in valid JSON format:
 
 ```html
 <section class="gallery" data-component="gallery">
@@ -49,7 +51,7 @@ It's also possible to pass options into your component, making CMS-configurable 
         }
     </script>
     <div class="gallery__slide"><img class="gallery__image" src=""></div>
-    ... rest of markup
+    ...
 </section>
 ```
 
@@ -127,7 +129,7 @@ projectName.gallery = function(options) {
 
 Only `init` and `singleton` are required for the component to work, but you can expose whichever functions etc that other components might want to access.
 
-Scripts that aren't bound to a `data-component` attribute (like `checkEmptyInput.js`) aren't initialised via `app.js`, so they're Immediately Invoked Function Expressions, and return their public API:
+Scripts that aren't bound to a `data-component` attribute (like `checkEmptyInput.js`) aren't initialised via `app.js`; they're Immediately Invoked Function Expressions, and return their public API:
 
 ```js
 // js/functions/helpers/checkEmptyInput.js
