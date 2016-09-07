@@ -1,5 +1,5 @@
 /**
-* Example function which is an IIFE (Immediately-invoked function expression). Set up in this way because it runs on rich text content which does not support our data-component technique.
+* Example function which is an IIFE (Immediately-invoked function expression). Set up in this way because it runs on rich text content which does not support hooking in via our data-component technique.
 */
 projectName.responsiveTables = (function() {
     var ui = {
