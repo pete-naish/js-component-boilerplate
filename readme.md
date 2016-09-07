@@ -21,14 +21,16 @@ Instances of 'projectName' may be found in:
 
 Just do a find & replace.
 
-`checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways. Files inside `js/functions/components` are for components that have hooks in your HTML as shown below. Files inside `js/functions/global` are for functions (IIFEs) that run without hooks in your HTML. For example, `responsiveTables.js` adds wrappers around tables that may be inside CMS-editable content areas, so adding hooks is not possible. Files inside `js/functions/helpers` are little snippets (IIFEs again) that can be used elsewhere in your application. For example, `checkEmptyInput.js` lets you check if a field is empty, and adds a temporary error class to the field if it is empty.
+`checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways.
+
+Files inside `js/functions/components` are for components that have hooks in your HTML as shown below. Files inside `js/functions/global` are for functions (IIFEs) that run without hooks in your HTML. For example, `responsiveTables.js` adds wrappers around tables that may be inside CMS-editable content areas, so adding hooks is not possible. Files inside `js/functions/helpers` are little snippets (IIFEs again) that can be used elsewhere in your application. For example, `checkEmptyInput.js` lets you check if a field is empty, and adds a temporary error class to the field if it is empty.
 
 When creating an HTML component that requires JavaScript, add a `data-component` attribute to the hightest level container available. For example:
 
 ```html
 <section class="gallery" data-component="gallery">
     <div class="gallery__slide"><img class="gallery__image" src=""></div>
-    ... rest of markup
+    ...
 </section>
 ```
 
@@ -159,7 +161,22 @@ projectName.checkEmptyInput = (function() {
 })();
 ```
 
-You can call `check` from any component by running `projectName.checkEmptyInput.check(event, element);`.
+As this is a helper, you can call `check` from any component by running `projectName.checkEmptyInput.check(event, element);`.
+
+The way you call a function within a normal component is a bit more verbose:
+
+```js
+projectName.app.instances.gallery.destroy();
+```
+
+If you've got multiple galleries on the page, and want to destroy them all, you'd do something like this:
+
+```js
+$.each(projectName.app.instances.gallery, function(i, gallery) {
+    gallery.destroy();
+});
+```
+
 
 # Precedent Base | Panini - HandlebarsJs | Gulp build
 
