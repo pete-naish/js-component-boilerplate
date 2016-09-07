@@ -72,6 +72,13 @@ projectName.componentName = function(options) {
         */
         ui.$button = $('.componentName__button', ui.$el);
 
+        /**
+        * Once our app has finished initialising all components on the page, set up a local shorthand to access any other components you need
+        */
+        $(projectName.app).on('ready', function() {
+            config.otherComponent = projectName.app.instances.otherComponent;
+        });
+
         bindEvents();
     }
 
@@ -88,7 +95,7 @@ projectName.componentName = function(options) {
         console.log(options.title);
         /**
         * Trigger custom events within componentName that can be listened to elsewhere in your app by using:
-        * $(projectName.app.instances.componentName).on('custom-event', function(){});
+        * $(config.otherComponent).on('custom-event', function(){});
         */
         $(componentName).trigger('custom-event');
     }

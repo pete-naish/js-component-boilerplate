@@ -19,6 +19,11 @@ projectName.app = (function() {
     */
     var instances = {};
 
+    var app = {
+        config: config,
+        instances: instances
+    };
+
     function init() {
         /**
         * For every ui.$component on the page, grab the optional data object, then work out if it's a singleton or not. If it's a singleton, add the component to
@@ -47,6 +52,10 @@ projectName.app = (function() {
             }
 
             instance.init(el);
+        })
+        .promise()
+        .done(function() {
+            $(app).trigger('ready');
         });
     }
 
@@ -76,8 +85,5 @@ projectName.app = (function() {
         init();
     });    
 
-    return {
-        config: config,
-        instances: instances
-    }
+    return app;
 })();
