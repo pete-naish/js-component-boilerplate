@@ -10,9 +10,16 @@ Doing `if ($(element).length)` to check an element exists before your code execu
 
 You'll need to change instances of the word `projectName` to whatever you choose to call your app. A nice short acronym is best.
 
-Instances of 'projectName' may be found in `/.jshintrc`, `src/assets/js/jquery-start.js`, `src/assets/js/app.js`, `src/assets/js/functions/helpers/checkEmptyInput.js`, `src/assets/js/functions/global/responsiveTables.js`, `src/assets/js/functions/components/componentName.js`, and `src/assets/js/functions/components/componentName--with-comments.js`.
+Instances of 'projectName' may be found in:
+- `.jshintrc`
+- `src/assets/js/jquery-start.js`
+- `src/assets/js/app.js`
+- `src/assets/js/functions/helpers/checkEmptyInput.js`
+- `src/assets/js/functions/global/responsiveTables.js`
+- `src/assets/js/functions/components/componentName.js`
+- `src/assets/js/functions/components/componentName--with-comments.js`
 
-`checkEmptyInput`, `responsiveTables`, `componentName`, and `componentName--with-comments` are example files that show how this architecture can be used in different ways. Files inside `js/functions/components` are for components that have hooks in your HTML as shown below. Files inside `js/functions/global` are for functions (IIFEs) that run without hooks in your HTML. The `responsiveTables` example adds wrappers around tables that may be inside CMS-editable content areas, so adding hooks is not possible. Files inside `js/functions/helpers` are little snippets (IIFEs again) that can be used elsewhere in your application. The `checkEmptyInput` example simply lets you check if a field is empty, and adds a temporary class if it is.
+`checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways. Files inside `js/functions/components` are for components that have hooks in your HTML as shown below. Files inside `js/functions/global` are for functions (IIFEs) that run without hooks in your HTML. The `responsiveTables` example adds wrappers around tables that may be inside CMS-editable content areas, so adding hooks is not possible. Files inside `js/functions/helpers` are little snippets (IIFEs again) that can be used elsewhere in your application. The `checkEmptyInput` example simply lets you check if a field is empty, and adds a temporary class if it is.
 
 When creating an HTML component that requires JavaScript, add a `data-component` attribute to the hightest level container available. For example:
 
@@ -46,7 +53,7 @@ It's also possible to pass options into your component, making CMS-configurable 
 </section>
 ```
 
-Inside your component you can define defaults that may be overridden by these options:
+Inside your component you can define a defaults object that may be overridden by these options:
 
 ```js
 // js/functions/components/gallery.js
@@ -66,12 +73,13 @@ projectName.gallery = function(options) {
     ...
 ```
 
-Once the component has been set up with any options, its `init(element)` method will be called, and the DOM node with the `data-component` attached to it will be passed in, allowing you to neatly scope all of your jQuery selectors within this parent:
+Once the component has been set up with any options, its `init(element)` method will be called, and the DOM node with the `data-component` attribute will be passed in, allowing you to neatly scope all of your jQuery selectors within this parent. This means that you can safely have multiple instances of your component on the same page (however, we'll see in a bit that you can limit this to only one instance):
 
 ```js
 // js/functions/components/gallery.js
 
 projectName.gallery = function(options) {
+    var ui = {};
     
     function init(element) {
         ui.$el = $(element);
@@ -82,6 +90,74 @@ projectName.gallery = function(options) {
     ...
 ```
 
+If you do have multiple instances of a component on the page, each one will be added to an [array] at `projectName.app.instances.componentName`. Otherwise, `projectName.app.instances.componentName` will just point to the public API of the single instance.
+
+Speaking of public API, each component is based on the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript). Each component returns any of its 'publicly' available functions and variables:
+
+```js
+// js/functions/components/gallery.js
+
+projectName.gallery = function(options) {
+    var ui = {};
+    var singleton = false;
+
+    var gallery = {
+        init: init,
+        destroy: destroy,
+        singleton: singleton,
+        ui: ui
+    };
+
+    function init(element) {
+        ui.$el = $(element);
+        ...
+    }
+
+    function destroy() {
+        ...
+    }
+
+    function privateFunction() {
+        ...
+    }
+
+    return gallery;
+}
+```
+
+Only `init` and `singleton` are required for the component to work, but you can expose whichever functions etc that other components might want to access.
+
+Scripts that aren't bound to a `data-component` attribute (like `checkEmptyInput.js`) aren't initialised via `app.js`, so they're Immediately Invoked Function Expressions, and return their public API:
+
+```js
+// js/functions/helpers/checkEmptyInput.js
+
+projectName.checkEmptyInput = (function() {
+    function check(e, $input) {
+        var searchTerm = $input.val();
+
+        e.preventDefault();
+
+        if (!searchTerm) {
+            $input
+                .focus()
+                .addClass('has-error');
+
+            setTimeout(function() {
+                $input.removeClass('has-error');
+            }, 400);
+        } else {
+            return true;
+        }
+    }
+
+    return {
+        check: check
+    };
+})();
+```
+
+You can call `check` from any component by running `projectName.checkEmptyInput.check(event, element);`.
 
 # Precedent Base | Panini - HandlebarsJs | Gulp build
 
@@ -89,7 +165,6 @@ It has a Gulp-powered build system with these features:
 
 - Handlebars HTML templates with Panini
 - Sass compilation and prefixing
-- Twitter Bootstrap framework
 - JavaScript concatenation
 - Built-in BrowserSync server
 - For production builds:
