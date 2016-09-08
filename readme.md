@@ -1,6 +1,6 @@
-This boilerplate outlines a new and improved component-based architecture for JavaScript.
+This boilerplate outlines a component-based architecture for JavaScript that keeps code neatly organised and allows components to talk to each other.
 
-It is designed to work together with re-usable HTML and CSS components.
+It is designed to work with component-based design and development.
 
 It removes the need for littering markup with JavaScript hooks, and makes it easy to pass CMS-editable variables into your code. Everything is neatly scoped, allowing for multiple instances to run on the same page without conflicts. Custom events can be fired in one component and listened to in another.
 
@@ -96,7 +96,7 @@ projectName.gallery = function(options) {
 
 If you do have multiple instances of a component on the page, each one will be added to an [array] at `projectName.app.instances.componentName`. Otherwise, `projectName.app.instances.componentName` will just point to the public API of the single instance.
 
-Speaking of public API, each component is based on the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript). Each component returns any of its 'publicly' available functions and variables:
+Speaking of public API, each component is based on the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript). Each component returns any of its publicly-available functions and variables, which means they're accessible outside of the component:
 
 ```js
 // js/functions/components/gallery.js
