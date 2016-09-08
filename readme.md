@@ -6,13 +6,13 @@ This boilerplate outlines a component-based architecture for JavaScript that kee
 
 It is designed to work with component-based design and development.
 
-It removes the need for littering markup with JavaScript hooks, and makes it easy to pass CMS-editable variables into your component. Everything is neatly scoped, allowing for multiple instances to run on the same page without conflicts. Custom events can be fired in one component and listened to in another.
+It removes the need for littering markup with JavaScript hooks (you'll only need one per component), and makes it easy to pass CMS-editable variables into your component. Everything is neatly scoped, allowing for multiple instances to run on the same page without conflicts. Custom events can be fired in one component and listened to in another.
 
 Using `if ($(element).length)` to check an element exists before your code executes is no longer necessary. By design, code will only run if the component is on the page.
 
 ## First things first
 
-Everything is namespaced to avoid conflicts with plugins or anything else that might run on the page. There's a single global object, `{projectName}`, and all of our components sit under that: `projectName.componentName`, e.g. `projectName.gallery`. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
+Everything is namespaced to avoid conflicts with plugins or anything else that might run on the page. There's a single global object, `{projectName}`, and all of our components sit under that, e.g. `projectName.gallery`. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
 
 Instances of `projectName` may be found here:
 - `.jshintrc`
@@ -23,11 +23,11 @@ Instances of `projectName` may be found here:
 - `src/assets/js/functions/components/componentName.js`
 - `src/assets/js/functions/components/componentName--with-comments.js`
 
-## How it works
-
 `src/assets/app.js` is the entry point into our app.
 
 `checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways.
+
+## How it works
 
 There are 3 types of component, all very similar, but with distinct use cases.
 
