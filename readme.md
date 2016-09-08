@@ -38,13 +38,13 @@ Regular components live inside `js/functions/components`. These are initialised 
 Global components live inside `js/functions/global`. These are Immediately Invoked Function Expressions (IIFEs) that don't have explicit hooks in your HTML. `responsiveTables.js` is an example that adds wrappers around tables that may be inside CMS-editable regions, where adding hooks to the HTML is not possible.
 
 ### Helpers
-Helpers live inside `js/functions/helpers`. These are useful snippets (IIFEs again) that are typically called from on or more other components. `checkEmptyInput.js` is an example that lets you check if a field is empty. It adds a temporary error class to the field if it is empty, or returns true if it's not empty.
+Helpers live inside `js/functions/helpers`. These are useful snippets (IIFEs again) that are typically called from one or more other components. `checkEmptyInput.js` is an example that lets you check if a field is empty. It adds a temporary error class to the field if it is empty, or `returns true` if it's not empty.
 
 ## Creating a regular component
 
 ### The HTML
 
-When creating an HTML component that requires JavaScript, add a `data-component` attribute to the hightest level container available. For example:
+When creating an HTML component that requires JavaScript, add a `data-component` attribute to the hightest level container available. The value for this attribute must match the name you define in the corresponding JavaScript. For example:
 
 ```html
 <section class="gallery" data-component="gallery">
@@ -71,7 +71,7 @@ It's possible to pass options into your component, making CMS-configurable setti
 
 ### The JavaScript
 
-On load, `app.js` will find all of the components in the DOM using the `data-component` attribute, and call the corresponding JavaScript based on the value provided. This value must match the value used in the component's JavaScript file, although the filename itself can be whatever you like (but you might as well make it the same). In the example above, the corresponding JavaScript component should start:
+On load, `app.js` will find all of the components in the DOM using the `data-component` attribute, and call the corresponding JavaScript based on the value provided. Again, this value must match the value used in the component's JavaScript file, although the filename itself can be whatever you like (but you might as well make it the same). In the example above, the corresponding JavaScript component should start:
 
 ```js
 // js/functions/components/gallery.js
@@ -82,7 +82,7 @@ projectName.gallery = function(options) {
 
 #### Options and defaults
 
-Inside your component you can define a defaults object that may be overridden by any options you've passed in:
+Inside your component you can define a `{defaults}` object that may be overridden by any options you've passed in:
 
 ```js
 // js/functions/components/gallery.js
@@ -94,6 +94,8 @@ projectName.gallery = function(options) {
 
     options = $.extend({}, defaults, options);
 
+    ...
+
     // usage
     $('.gallery').slick({
         transition: options.transitionSpeed   
@@ -104,7 +106,7 @@ projectName.gallery = function(options) {
 
 #### Initialisation
 
-Once the component has been set up with any options, its `init(element)` method will be called, and the DOM node with the `data-component` attribute will be passed in, allowing you to neatly scope all of your jQuery selectors within this parent. This means that you can safely have multiple instances of your component on the same page (however, we'll see in a bit that you can limit this to only one instance):
+Once the component has been set up with any options, its `init()` method will be called, and the DOM node with the `data-component` attribute will be passed in, allowing you to neatly scope all of your jQuery selectors within this parent. This means that you can safely have multiple instances of your component on the same page (however, we'll see in a bit that you can limit this to only one instance):
 
 ```js
 // js/functions/components/gallery.js
@@ -118,14 +120,31 @@ projectName.gallery = function(options) {
 
         ...
     }
+
     ...
 ```
 
+Make sure you populate your `{ui}` object on `init`, like the above, as that's when the root element will be available.
+
 #### The Revealing Module Pattern
 
-If you do have multiple instances of a component on the page, each one will be added to an [array] at `projectName.app.instances.componentName`. Otherwise, `projectName.app.instances.componentName` will just point to the public API of the single instance.
+Each component is based on the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript), where you can define private and public functions and variables. Privates are only accessible within the component, and anything made public (exposed) is accessible from outside of the component.
 
-Speaking of public API, each component is based on the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript). Each component returns any of its publicly-available functions and variables, which means they're accessible outside of the component:
+`app.js` requires each Regular component to expose the `init` function and `singleton` variable. Global components call their `init` function automatically, so you can just expose any other functions or variables necessary. Helpers, on the other hand, don't necessarily need an `init` function, so you can just expose whichever functions or variables you like and invoke them on demand.
+
+In most examples of the revealing module pattern, you will see the following as the final statement in a module (this is the key line which exposes our public bits): 
+
+```js
+...
+
+return {
+    start: publicFunction,
+    increment: publicIncrement,
+    count: publicGetCount
+};
+```
+
+In this boilerplate, however, we define a variable (named whatever, but for ease I give it the same name as the component) and assign our exposed bits to it:
 
 ```js
 // js/functions/components/gallery.js
@@ -143,6 +162,7 @@ projectName.gallery = function(options) {
 
     function init(element) {
         ui.$el = $(element);
+
         ...
     }
 
@@ -158,90 +178,160 @@ projectName.gallery = function(options) {
 }
 ```
 
-Only `init` and `singleton` are required for the component to work, but you can expose whichever functions etc that other components might want to access.
+We then `return` our public object in our final statement.
 
-Scripts that aren't bound to a `data-component` attribute (like `checkEmptyInput.js`) aren't initialised via `app.js`; they're Immediately Invoked Function Expressions, and return their public API:
+#### Getting your components to talk to each other
+
+Assigning our public bits to a variable allows us to wrap our object in jQuery and trigger custom events:
 
 ```js
-// js/functions/helpers/checkEmptyInput.js
+// js/functions/components/gallery.js
 
-projectName.checkEmptyInput = (function() {
-    function check(e, $input) {
-        var searchTerm = $input.val();
+projectName.gallery = function(options) {
+    ...
 
-        e.preventDefault();
+    var gallery = {
+        init: init,
+        destroy: destroy,
+        singleton: singleton,
+        ui: ui
+    };
 
-        if (!searchTerm) {
-            $input
-                .focus()
-                .addClass('has-error');
+    ...
 
-            setTimeout(function() {
-                $input.removeClass('has-error');
-            }, 400);
-        } else {
-            return true;
-        }
+    function handleClick() {
+        $(gallery).trigger('clicked');
+
+        ...
     }
 
-    return {
-        check: check
+    return gallery;
+}
+```
+
+Inside another component, we can now listen for our custom event and run whatever function we like when it occurs:
+
+```js
+// js/functions/components/galleryLightbox.js
+
+projectName.galleryLightbox = function(options) {
+    ...
+
+    function bindEvents() {
+        $(projectName.app.instances.gallery).on('clicked', function() {
+            console.log('This was triggered by our gallery component!');
+        });
+    }
+    
+    ...
+}
+```
+
+You might be thinking that `projectName.app.instances.gallery` is pretty verbose, and you'd be right. You can cache a reference to our gallery component if you're going to be referencing it a lot in another component. `app.js` is set up to trigger a `ready` event once all Regular components on the page have been initialised. We can listen for this event and create our reference:
+
+```js
+// js/functions/components/galleryLightbox.js
+
+projectName.galleryLightbox = function(options) {
+    ...
+
+    var config = {
+        animationSpeed: projectName.app.config.animationSpeed 
     };
-})();
+    
+    function init(element) {
+        $(projectName.app).on('ready', function() {
+            config.gallery = projectName.app.instances.gallery;
+        });
+
+        ...
+    }
+
+    function bindEvents() {
+        $(config.gallery).on('clicked', function() {
+            console.log('This was triggered by our gallery component!');
+        });
+    }
+
+    ...
 ```
 
-As this is a helper, you can call `check` from any component by running `projectName.checkEmptyInput.check(event, element);`.
+#### Singletons and Instances
 
-The way you call a function within a normal component is a bit more verbose:
+A user should be able to stick as many components like a gallery or map on the page as they like. However, there are some components, like a filter or the site's primary navigation, that should be limited to a single instance.
+
+Inside each Regular component, you should declare and expose a `singleton` boolean which tells `app.js` whether to allow multiple instances. If you set `singleton` to `true` and more than one of the same component exists on the page, only the first will be initialised, and subsequent components will generate a console warning.
+
+
+##### Accessing instances
+
+Earlier, I talked about how you can access one component from another. The method varies slightly, depending on whether the component you're accessing is set up to be a singleton.
+
+When `app.js` initialises the Regular components on the page, it will add singleton components to the `{projectName}` object at `projectName.app.instances.componentName`, allowing you to access the component's exposed bits as per the following example, where `gallery` is a singleton:
 
 ```js
-projectName.app.instances.gallery.destroy();
+// js/functions/components/galleryLightbox.js
+
+projectName.galleryLightbox = function(options) {
+    ...
+
+    projectName.app.instances.gallery.destroy();
+
+    ...
 ```
 
-If you've got multiple galleries on the page, and want to destroy them all, you'd do something like this:
+On the other hand, if your component is set up to allow multiple instances (`var singleton = false;` like our gallery below), `projectName.app.instances.componentName` will be an `[array]`. You can then loop through each instance in the array to access their exposed bits:
 
 ```js
-$.each(projectName.app.instances.gallery, function(i, gallery) {
-    gallery.destroy();
-});
+// js/functions/components/galleryLightbox.js
+
+projectName.galleryLightbox = function(options) {
+    ...
+
+    $.each(projectName.app.instances.gallery, function(i, gallery) {
+        gallery.destroy();
+    });
+
+    ...
 ```
 
+#### Other hints
 
-# Precedent Base | Panini - HandlebarsJs | Gulp build
+`app.js` has an exposed a `{config}` object, which contains settings and variables that can be used throughout the application by typing `projectName.app.config.animationSpeed`, for example.
 
-It has a Gulp-powered build system with these features:
+Each component has its own `{config}` object, which contains settings and variables that are used in that component. You can use this object to reference or override anything defined in `app.js`:
 
-- Handlebars HTML templates with Panini
-- Sass compilation and prefixing
-- JavaScript concatenation
-- Built-in BrowserSync server
-- For production builds:
-  - CSS compression
-  - JavaScript compression
-  - Image compression
+```js
+// js/functions/components/galleryLightbox.js
 
-## Installation
+projectName.galleryLightbox = function(options) {
+    ...
 
-To use this template, your computer needs:
+    var config = {
+        animationSpeed: projectName.app.config.animationSpeed 
+    };
 
-- [NodeJS](https://nodejs.org/en/) (0.10 or greater)
-- [Git](https://git-scm.com/)
-
-- [Repo](Clone repo from stash)
-
-
-Then open the folder in your command line, and install the needed dependencies:
-
-```bash
-cd projectname
-npm install
-bower install
+    ...
 ```
 
-Finally, run `npm start` to run Gulp. Your finished site will be created in a folder called `dist`, viewable at this URL:
+In each component there's also a `{state}` object, which I like to use to keep track of component state:
 
-```
-http://localhost:8000
-```
+```js
+// js/functions/components/galleryLightbox.js
 
-To create compressed, production-ready assets, run `npm run build`.
+projectName.galleryLightbox = function(options) {
+    ...
+
+    var state = {
+        currentItem: null
+    };
+
+    ...
+
+    function handleChange() {
+        ...
+        state.currentItem = $(this);
+    }
+
+    ...
+```
