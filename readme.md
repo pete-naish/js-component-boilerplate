@@ -1,16 +1,20 @@
+# Component-based JavaScript architecture
+
+## Overview
+
 This boilerplate outlines a component-based architecture for JavaScript that keeps code neatly organised and allows components to talk to each other.
 
 It is designed to work with component-based design and development.
 
-It removes the need for littering markup with JavaScript hooks, and makes it easy to pass CMS-editable variables into your code. Everything is neatly scoped, allowing for multiple instances to run on the same page without conflicts. Custom events can be fired in one component and listened to in another.
+It removes the need for littering markup with JavaScript hooks, and makes it easy to pass CMS-editable variables into your component. Everything is neatly scoped, allowing for multiple instances to run on the same page without conflicts. Custom events can be fired in one component and listened to in another.
 
-Doing `if ($(element).length)` to check an element exists before your code executes is no longer necessary. By design, code will only run if the component is on the page.
+Using `if ($(element).length)` to check an element exists before your code executes is no longer necessary. By design, code will only run if the component is on the page.
 
-`src/assets/app.js` is the entry point into our app.
+## First things first
 
-You'll need to change instances of the word `projectName` to whatever you choose to call your app. A nice short acronym is best.
+Everything is namespaced to avoid conflicts with plugins or anything else that might run on the page. There's a single global object, `{projectName}`, and all of our components sit under that: `projectName.componentName`, e.g. `projectName.gallery`. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
 
-Instances of 'projectName' may be found in:
+Instances of `projectName` may be found here:
 - `.jshintrc`
 - `src/assets/js/jquery-start.js`
 - `src/assets/js/app.js`
@@ -19,11 +23,26 @@ Instances of 'projectName' may be found in:
 - `src/assets/js/functions/components/componentName.js`
 - `src/assets/js/functions/components/componentName--with-comments.js`
 
-Just do a find & replace.
+## How it works
+
+`src/assets/app.js` is the entry point into our app.
 
 `checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways.
 
-Files inside `js/functions/components` are for components that have hooks in your HTML as shown below. Files inside `js/functions/global` are for functions (IIFEs) that run without hooks in your HTML. For example, `responsiveTables.js` adds wrappers around tables that may be inside CMS-editable content areas, so adding hooks is not possible. Files inside `js/functions/helpers` are little snippets (IIFEs again) that can be used elsewhere in your application. For example, `checkEmptyInput.js` lets you check if a field is empty, and adds a temporary error class to the field if it is empty.
+There are 3 types of component, all very similar, but with distinct use cases.
+
+### Regular components
+Regular components live inside `js/functions/components`. These are initialised from hooks in your HTML as shown below.
+
+### Global components
+Global components live inside `js/functions/global`. These are Immediately Invoked Function Expressions (IIFEs) that don't have explicit hooks in your HTML. `responsiveTables.js` is an example that adds wrappers around tables that may be inside CMS-editable regions, where adding hooks to the HTML is not possible.
+
+### Helpers
+Helpers live inside `js/functions/helpers`. These are useful snippets (IIFEs again) that are typically called from on or more other components. `checkEmptyInput.js` is an example that lets you check if a field is empty. It adds a temporary error class to the field if it is empty, or returns true if it's not empty.
+
+## Creating a regular component
+
+### The HTML
 
 When creating an HTML component that requires JavaScript, add a `data-component` attribute to the hightest level container available. For example:
 
@@ -34,16 +53,9 @@ When creating an HTML component that requires JavaScript, add a `data-component`
 </section>
 ```
 
-On load, `app.js` will find all of the components in the DOM using the `data-component` attribute, and initialise the corresponding JavaScript based on the value provided. This value must match the value used in the component's JavaScript file, although the filename itself can be whatever you like (but you might as well make it the same). In the example above, the corresponding JavaScript file should start:
+#### Passing in options
 
-```js
-// js/functions/components/gallery.js
-
-projectName.gallery = function(options) {
-    ...
-```
-
-It's also possible to pass options into your component, making CMS-configurable settings painless. This is indicated by the options parameter in the snippet above. In your HTML, insert a `script` tag with `type="text/data"`, and add your options in valid JSON format:
+It's possible to pass options into your component, making CMS-configurable settings painless. In your HTML, insert `<script type="text/data"></script>`, and add your options in valid JSON format:
 
 ```html
 <section class="gallery" data-component="gallery">
@@ -57,7 +69,20 @@ It's also possible to pass options into your component, making CMS-configurable 
 </section>
 ```
 
-Inside your component you can define a defaults object that may be overridden by these options:
+### The JavaScript
+
+On load, `app.js` will find all of the components in the DOM using the `data-component` attribute, and call the corresponding JavaScript based on the value provided. This value must match the value used in the component's JavaScript file, although the filename itself can be whatever you like (but you might as well make it the same). In the example above, the corresponding JavaScript component should start:
+
+```js
+// js/functions/components/gallery.js
+
+projectName.gallery = function(options) {
+    ...
+```
+
+#### Options and defaults
+
+Inside your component you can define a defaults object that may be overridden by any options you've passed in:
 
 ```js
 // js/functions/components/gallery.js
@@ -77,6 +102,8 @@ projectName.gallery = function(options) {
     ...
 ```
 
+#### Initialisation
+
 Once the component has been set up with any options, its `init(element)` method will be called, and the DOM node with the `data-component` attribute will be passed in, allowing you to neatly scope all of your jQuery selectors within this parent. This means that you can safely have multiple instances of your component on the same page (however, we'll see in a bit that you can limit this to only one instance):
 
 ```js
@@ -87,12 +114,14 @@ projectName.gallery = function(options) {
     
     function init(element) {
         ui.$el = $(element);
-        ui.$slides = $('.gallery__slide', ui.$el);
+        ui.$slides = $('.gallery__slide', ui.$el); // Slides are scoped inside our parent selector. This is shorthand for ui.$el.find('.gallery__slide')
 
         ...
     }
     ...
 ```
+
+#### The Revealing Module Pattern
 
 If you do have multiple instances of a component on the page, each one will be added to an [array] at `projectName.app.instances.componentName`. Otherwise, `projectName.app.instances.componentName` will just point to the public API of the single instance.
 
