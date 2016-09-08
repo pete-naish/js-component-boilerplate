@@ -124,7 +124,7 @@ projectName.gallery = function(options) {
     ...
 ```
 
-Make sure you populate your `{ui}` object on `init`, as above, as that's when the root element will be available.
+The `{ui}` object contains all of our cached jQuery collections. Make sure you populate your this on `init`, as above, as that's when the root element will be available.
 
 #### The Revealing Module Pattern
 
