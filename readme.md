@@ -124,7 +124,7 @@ projectName.gallery = function(options) {
     ...
 ```
 
-Make sure you populate your `{ui}` object on `init`, like the above, as that's when the root element will be available.
+Make sure you populate your `{ui}` object on `init`, as above, as that's when the root element will be available.
 
 #### The Revealing Module Pattern
 
@@ -295,7 +295,7 @@ projectName.galleryLightbox = function(options) {
     ...
 ```
 
-#### Other hints
+#### Other bits
 
 `app.js` has an exposed a `{config}` object, which contains settings and variables that can be used throughout the application by typing `projectName.app.config.animationSpeed`, for example.
 
