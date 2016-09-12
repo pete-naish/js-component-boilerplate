@@ -15,10 +15,13 @@ var convert = require('gulp-convert');
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
+var replace = require('gulp-replace');
 
 
 // Check for --production flag
 var isProduction = !!(argv.production);
+
+var namespace = argv.namespace || 'projectName';
 
 // Port to use for the development server.
 var PORT = 8000;
@@ -44,6 +47,10 @@ var PATHS = {
   vendorJS: [
     'src/assets/js/vendor/*.js'
   ],
+  namespaceLocations: [
+    'src/assets/js/**/*',
+    '.jshintrc'
+  ],
   utilJS: [
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/handlebars/handlebars.runtime.min.js'
@@ -56,6 +63,11 @@ var PATHS = {
     'src/assets/js/templates/*.hbs'
   ]
 };
+
+gulp.task('replace', function(){
+  gulp.src(PATHS.namespaceLocations)
+    .pipe(replace('projectName', namespace));
+});
 
 gulp.task('handlebars', function(){
   gulp.src(PATHS.renderTemplates)
