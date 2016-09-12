@@ -54,7 +54,7 @@ projectName.componentName = function(options) {
     * Merge {options} that are passed in when componentName is called on page load with {defaults}. Allows access via:
     * options.zoom
     */
-    options = $.extend({}, defaults, options);
+    options = $.extend(true, {}, defaults, options);
 
     /**
     * initialise component js

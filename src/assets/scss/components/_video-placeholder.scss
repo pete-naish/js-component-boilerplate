@@ -7,7 +7,7 @@
         transform: translate(-50%, -50%);
     }
     .icon-play__background {
-        transition: fill $default-transition;
+        transition: fill .2s ease-out;
     }
     &.has-loaded {
         background: url(../img/icons/icon-loading.gif) no-repeat center !important;
@@ -21,13 +21,13 @@
     }
     &:focus {
         .icon-play__background {
-            fill: $color-blue--active
+            fill: #003da5;
         }
     }
     .no-touch & {
         &:hover {
             .icon-play__background {
-                fill: $color-blue--active
+                fill: #003da5;
             }
         }
     }

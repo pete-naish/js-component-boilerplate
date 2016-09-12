@@ -1,21 +1,3 @@
-.gallery {
-    padding: 0 10px;
-    @include bp(medium) {
-        padding: 0 $horizontal-spacer;
-    }
-}
-
-.gallery__title {
-    @extend %text-heading--2;
-    border-bottom: 1px solid $color-grey--mid;
-    margin: 0 10px 20px;
-    padding: 14px 0;
-    @include bp(medium) {
-        margin: 0 $horizontal-spacer 50px;
-        padding: 20px 0;
-    }
-}
-
 .gallery__content {
     display: none;
 }
@@ -37,16 +19,16 @@
     padding: 0 10px;
     position: relative;
     &:after {
-        border-bottom: $horizontal-spacer--wide solid $color-grey--keyline;
-        border-left: $horizontal-spacer--wide solid transparent;
-        border-right: $horizontal-spacer--wide solid transparent;
+        border-bottom: 20px solid #e0e0e0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
         content: '';
         height: 0; 
         left: 50%;
         opacity: 0;
         position: absolute;
         top: 100%;
-        transition: opacity $default-transition;
+        transition: opacity .2s ease-out;
         transform: translateX(-50%);
         width: 0; 
     }
@@ -57,12 +39,12 @@
     }
     @include bp(medium) {
         margin-bottom: 30px;
-        padding: 0 $horizontal-spacer;
+        padding: 0 15px;
         flex-basis: 25%;
         &:after {
-            border-bottom: $horizontal-spacer--full solid $color-grey--keyline;
-            border-left: $horizontal-spacer--full solid transparent;
-            border-right: $horizontal-spacer--full solid transparent;
+            border-bottom: 30px solid #e0e0e0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
         }
         .gallery--image & {
             flex-basis: 33.33%;
@@ -71,18 +53,18 @@
 }
 
 .gallery__display {
-    background-color: $color-grey--keyline;
+    background-color: #e0e0e0;
     display: none;
     flex-basis: 100%;
     margin: 0 10px 20px;
-    padding: 20px $horizontal-spacer--wide 30px;
+    padding: 20px 20px 30px;
     position: relative;
     .gallery--image & {
         padding-top: 60px;
     }
     @include bp(medium) {
-        margin: 0 $horizontal-spacer 30px;
-        padding: 20px $horizontal-spacer--full 30px;
+        margin: 0 15px 30px;
+        padding: 20px 30px 30px;
     }
 }
 
@@ -106,7 +88,7 @@
     width: 50px;
     -webkit-appearance: none;
     .icon-arrow--large__shape {
-        stroke: $color-text--secondary;
+        stroke: #fff;
     }
 }
 
@@ -125,17 +107,17 @@
     right: 20px;
     -webkit-appearance: none;
     .icon-x__shape {
-        transition: fill $default-transition;
+        transition: fill .2s ease-out;
     }
     &:focus {
         .icon-x__shape {
-            fill: $color-text--primary;
+            fill: #333;
         }
     }
     .no-touch & {
         &:hover {
             .icon-x__shape {
-                fill: $color-text--primary;
+                fill: #333;
             }
         }   
     }

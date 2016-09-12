@@ -1,7 +1,10 @@
 html,
 body {
-    @extend %text-body;
-    color: $color-text--primary;
+    font-family: Arial, Helvetica;
+    font-size: 16px;
+    line-height: 1.62;
+    transition: all .2s ease-out;
+    color: #333;
     -ms-text-size-adjust: 100%;
     position: relative;
     -webkit-text-size-adjust: 100%;

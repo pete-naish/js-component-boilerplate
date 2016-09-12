@@ -1,0 +1,6 @@
+.accordion__content {
+    display: none;
+    .no-js & {
+        display: block;
+    }
+}

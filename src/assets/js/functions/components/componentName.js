@@ -22,7 +22,7 @@ projectName.componentName = function(options) {
         ui: ui
     };
 
-    options = $.extend({}, defaults, options);
+    options = $.extend(true, {}, defaults, options);
 
     function init(element) {
         ui.$el = $(element);
