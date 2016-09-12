@@ -65,8 +65,10 @@ var PATHS = {
 };
 
 gulp.task('replace', function(){
-  gulp.src(PATHS.namespaceLocations)
-    .pipe(replace('projectName', namespace));
+  gulp.src(PATHS.namespaceLocations, {base: "./"})
+    .pipe(replace('projectName', namespace))
+    .pipe(gulp.dest("./"));
+
 });
 
 gulp.task('handlebars', function(){
