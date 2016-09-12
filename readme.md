@@ -12,7 +12,7 @@ Using `if ($(element).length)` to check an element exists before your code execu
 
 ## First things first
 
-Everything is namespaced to avoid conflicts with plugins or anything else that might run on the page. There's a single global object, `{projectName}`, and all of our components sit under that, e.g. `projectName.gallery`. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
+Everything is namespaced to avoid conflicts with plugins or anything else that might run on the page. There's a single global object, `{projectName}`, and all of our components sit under that, e.g. `projectName.gallery`. Running `projectName` in the console will show you everything that's available on the current page. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
 
 Instances of `projectName` may be found here:
 - `.jshintrc`
@@ -262,7 +262,6 @@ A user should be able to stick as many components like a gallery or map on the p
 
 Inside each Regular component, you should declare and expose a `singleton` boolean which tells `app.js` whether to allow multiple instances. If you set `singleton` to `true` and more than one of the same component exists on the page, only the first will be initialised, and subsequent components will generate a console warning.
 
-
 ##### Accessing instances
 
 Earlier, I talked about how you can access one component from another. The method varies slightly, depending on whether the component you're accessing is set up to be a singleton.
@@ -294,6 +293,8 @@ projectName.galleryLightbox = function(options) {
 
     ...
 ```
+
+Helpers are available at `projectName.componentName`.
 
 #### Other bits
 
