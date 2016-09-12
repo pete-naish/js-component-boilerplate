@@ -63,7 +63,7 @@ projectName.app = (function() {
     * Find optional data object and parse as JSON
     */
     function initOptions(el) {
-        var dataScriptElement = $("script[type='text/data']", $(el));
+        var dataScriptElement = $("> script[type='text/data']", $(el));
         var jsonString;
         var options;
 

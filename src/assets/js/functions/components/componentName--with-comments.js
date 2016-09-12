@@ -56,7 +56,6 @@ projectName.componentName = function(options) {
     */
     options = $.extend({}, defaults, options);
 
-
     /**
     * initialise component js
     * @param {element} is passed in from app.js
