@@ -31,10 +31,10 @@ projectName.accordion = function(options) {
             var $this = $(this);
             var isActive = $this.hasClass('is-active');
             var $targetContent = $this.next('.accordion__content');
-            var accordionToggles = options.collapseOthers ? ui.$accordionToggles : $this;
-            var accordionContent = options.collapseOthers ? ui.$accordionContent : $targetContent;
+            var $accordionToggles = options.collapseOthers ? ui.$accordionToggles : $this;
+            var $accordionContent = options.collapseOthers ? ui.$accordionContent : $targetContent;
 
-            collapseAccordion(accordionToggles, accordionContent);
+            collapseAccordion($accordionToggles, $accordionContent);
             
             if (!isActive) {
                 expandAccordion($this, $targetContent);
@@ -42,9 +42,9 @@ projectName.accordion = function(options) {
         });
     }
 
-    function collapseAccordion(accordionToggles, accordionContent) {
-        accordionToggles.removeClass('is-active');
-        accordionContent.stop().slideUp(config.animationSpeed);
+    function collapseAccordion($accordionToggles, $accordionContent) {
+        $accordionToggles.removeClass('is-active');
+        $accordionContent.stop().slideUp(config.animationSpeed);
     }
 
     function expandAccordion($el, $content) {
