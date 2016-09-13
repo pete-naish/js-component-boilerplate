@@ -12,15 +12,13 @@ Using `if ($(element).length)` to check an element exists before your code execu
 
 ## First things first
 
-Everything is namespaced to avoid conflicts with plugins or anything else that might run on the page. In this boilerplate, the namespace is `projectName`. You'll want to run the following to replace all instances with `yourProjectName`:
+Everything is namespaced to avoid conflicts with plugins or anything else that might run on the page. In this boilerplate, the namespace is `projectName`. You'll want to run the following to replace all instances with `yourProjectName` (a short acronym is best):
 
 ```bash
-    npm run namespace yourProjectName
+npm run namespace yourProjectName
 ```
 
-
-
-There's a single global object, `{projectName}`, and all of our components sit under that, e.g. `projectName.gallery`. Running `projectName` in the console will show you everything that's available on the current page. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
+Running `projectName` in the console will show you everything that's available on the current page. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
 
 Instances of `projectName` may be found here:
 - `.jshintrc`
