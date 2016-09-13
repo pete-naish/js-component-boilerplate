@@ -282,7 +282,6 @@ Only nest the following, if you can help it:
 
 #### Full example
 
-<pre class="language-scss">                        
 ```scss
 .example {
     @extend %heading;
