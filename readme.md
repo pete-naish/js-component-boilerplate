@@ -80,6 +80,8 @@ It's possible to pass options into your component, making CMS-configurable setti
 
 ### The JavaScript
 
+`js/functions/components/componentName.js` can be copied when creating new regular components as it contains everything you need to get started.
+
 On load, `app.js` will find all of the regular components on the page using the `data-component` attribute, and call the corresponding JavaScript based on the value provided. Again, this value must match the value used in the component's JavaScript file, although the filename itself can be whatever you like (but you might as well make it the same). Following the example above, the corresponding JavaScript component should start:
 
 ```js
