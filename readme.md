@@ -18,33 +18,36 @@ Everything is namespaced to avoid conflicts with plugins or anything else that m
 npm run namespace yourProjectName
 ```
 
-Running `projectName` in the console will show you everything that's available on the current page. The default namespace is `projectName`, so you'll need to find and replace that with whatever your app is called. A nice short acronym is best.
-
-Instances of `projectName` may be found here:
-- `.jshintrc`
-- `src/assets/js/jquery-start.js`
-- `src/assets/js/app.js`
-- `src/assets/js/functions/helpers/checkEmptyInput.js`
-- `src/assets/js/functions/global/responsiveTables.js`
-- `src/assets/js/functions/components/componentName.js`
-- `src/assets/js/functions/components/componentName--with-comments.js`
-
-`src/assets/app.js` is the entry point into our app.
-
-`checkEmptyInput.js`, `responsiveTables.js`, `componentName.js`, and `componentName--with-comments.js` are example files that show how this architecture can be used in different ways.
+Running `yourProjectName` in the console will show you everything that's available on the current page, and how it fits within the namespace. 
 
 ## How it works
+
+`src/assets/app.js` is the entry point into our app. It contains project-wide settings and the logic for initialising our Regular components.
 
 There are 3 types of component, all very similar, but with distinct use cases.
 
 ### Regular components
-Regular components live inside `js/functions/components`. These are initialised from hooks in your HTML as shown below.
+Regular components live inside `js/functions/components`. These are initialised from hooks in your HTML as shown further down.
+
+This boilerplate contains the following commonly-used Regular components:
+- `accordion.js` - toggle display of content
+- `gallery.js` - thumbnail gallery grid which opens full content below current row
+- `googleMap.js` - standard Google map implementation
+- `overlay.js` - page overlay
+- `videoPlaceholder.js` - add placeholder image which loads video on click
 
 ### Global components
-Global components live inside `js/functions/global`. These are Immediately Invoked Function Expressions (IIFEs) that don't have explicit hooks in your HTML. `responsiveTables.js` is an example that adds wrappers around tables that may be inside CMS-editable regions, where adding hooks to the HTML is not possible.
+Global components live inside `js/functions/global`. These are Immediately Invoked Function Expressions (IIFEs) that don't have explicit hooks in your HTML.
+
+This boilerplate contains following global component:
+- `responsiveTables.js` - wrap tables with scrollable container for mobile. It's a global component because it adds wrappers around tables that may be inside CMS-editable regions, where adding hooks to the HTML is not possible.
 
 ### Helpers
-Helpers live inside `js/functions/helpers`. These are useful snippets (IIFEs again) that are typically called from one or more other components. `checkEmptyInput.js` is an example that lets you check if a field is empty. It adds a temporary error class to the field if it is empty, or `returns true` if it's not empty.
+Helpers live inside `js/functions/helpers`. These are useful snippets (IIFEs again) that are typically called from one or more other components.
+
+This boilerplate contains the following helpers:
+- `checkEmptyInput.js` - check if input is empty, add temporary error class if it is, or return true if it's populated
+- `smartResize.js` - debounced resize function so events aren't fired hundreds of times on resize
 
 ## Creating a regular component
 
