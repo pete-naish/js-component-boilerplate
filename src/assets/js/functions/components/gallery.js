@@ -30,12 +30,17 @@ projectName.gallery = function(options) {
         ui.$el = $(element);
         ui.$galleryItems = $('.gallery__item', ui.$el);
         ui.$galleryDisplay = $('.gallery__display', ui.$el);
-        ui.$galleryDisplayContainer = $('.gallery__display-container', ui.$el);
-        ui.$galleryNav = $('.gallery__control', ui.$el);
-        ui.$galleryClose = $('.gallery__close', ui.$el);
+        ui.$galleryDisplayContainer = $('.gallery__display-container', ui.$galleryDisplay);
+        ui.$galleryNav = $('.gallery__nav', ui.$galleryDisplay);
+        ui.$galleryControl = $('.gallery__control', ui.$galleryNav);
+        ui.$galleryClose = $('.gallery__close', ui.$galleryDisplay);
 
         state.galleryItemCount = ui.$galleryItems.length;
         state.isImageGallery = ui.$el.hasClass('gallery--image');
+
+        if (state.galleryItemCount === 1) {
+            ui.$galleryNav.hide();
+        }
 
         bindEvents();
     }
@@ -78,6 +83,8 @@ projectName.gallery = function(options) {
                     });
             } else {
                 activateGalleryItem($parent);
+
+                revealGalleryDisplay();
 
                 fadeOutGalleryDisplayContainer()
                     .promise()
@@ -162,7 +169,7 @@ projectName.gallery = function(options) {
         var currentRow = Math.floor(index / itemsPerRow);
         var lastItemInCurrentRow = ((currentRow + 1) * itemsPerRow) - 1; // make sure maths works with 0-based index
 
-        if (lastItemInCurrentRow === state.galleryItemCount) {
+        if (lastItemInCurrentRow >= state.galleryItemCount) {
             lastItemInCurrentRow = state.galleryItemCount - 1;
         }
 
