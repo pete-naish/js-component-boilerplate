@@ -25,15 +25,7 @@ cd projectname
 npm install
 bower install
 
-Important
-You'll need to update the version of Handlebars that gulp-handlebars uses. To do this, run:
-
-npm install core-util-is inherits xtend
-Then cd to node_modules/gulp-handlebars/node_modules/ and back up handlebars and through2.
-
-Now unzip Source/CFA.Frontend/Update Handlebars.zip into node_modules/gulp-handlebars/node_modules/.
-
-Finally, run npm start to run Gulp. Your finished site will be created in a folder called dist, viewable at this URL:
+Run npm start to run Gulp. Your finished site will be created in a folder called dist, viewable at this URL:
 
 http://localhost:8000
 To create compressed, production-ready assets, run npm run build.
